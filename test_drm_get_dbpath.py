@@ -3,50 +3,106 @@ import unittest
 from simple_csv_reporter import SubTestResult
 
 class TestDrmGetDBPath(unittest.TestCase):
-    """Test case của bạn."""
+    """Test case đơn giản - không có timing."""
     
     def setUp(self):
         super().setUp()
         if not hasattr(self, '_test_data'):
             self._test_data = {}
     
-    def test_simple_success(self):
+    def test_success_case(self):
         """Test thành công."""
         self._test_data['args'] = ['user1', 'device1']
-        result = {'status': 'success', 'db_path': '/path/user1.db'}
+        self._test_data['kwargs'] = {'environment': 'production'}
+        
+        result = self.get_db_path('user1', 'device1', environment='production')
         self._test_data['return_value'] = result
+        
         self.assertEqual(result['status'], 'success')
+    
+    def test_failure_case(self):
+        """Test thất bại."""
+        self._test_data['args'] = ['invalid_user', 'device1']
+        
+        with self.assertRaises(ValueError):
+            self.get_db_path('', 'device1')
+        
+        self._test_data['return_value'] = {'error': 'Invalid user'}
     
     def test_with_subtests(self):
         """Test với subtests."""
-        cases = ['admin', 'user', 'guest']
+        test_cases = [
+            {'user': 'admin', 'role': 'admin', 'expected': 'admin_db'},
+            {'user': 'user1', 'role': 'user', 'expected': 'user_db'},
+            {'user': 'guest1', 'role': 'guest', 'expected': 'guest_db'}
+        ]
         
-        for role in cases:
-            with self.subTest(role=role):
-                self._test_data['args'] = [f'{role}_user', f'{role}_device']
-                result = {'status': 'success', 'role': role}
+        for case in test_cases:
+            with self.subTest(user=case['user'], role=case['role']):
+                self._test_data['args'] = [case['user'], 'device123']
+                self._test_data['kwargs'] = {'role': case['role']}
+                
+                result = self.get_db_path(case['user'], 'device123', role=case['role'])
                 self._test_data['return_value'] = result
-                self.assertEqual(result['role'], role)
+                
+                self.assertIn(case['expected'], result['db_path'])
     
-    def test_failure_case(self):
-        """Test bị failed."""
-        self._test_data['args'] = ['user1', 'device1']
-        self._test_data['return_value'] = {'status': 'failed'}
-        self.assertEqual(1, 2)  # Cố tình fail
+    @unittest.skip("Feature not ready yet")
+    def test_skipped_feature(self):
+        """Test bị skip."""
+        self._test_data['args'] = ['future_user']
+        self.assertTrue(False)  # Không chạy
     
-    def test_error_case(self):
-        """Test bị error."""
-        self._test_data['args'] = ['user1', 'device1']
-        # Cố tình gây lỗi
-        raise ValueError("Test error case")
+    @unittest.skipIf(1 == 1, "Conditional skip")
+    def test_conditional_skip(self):
+        """Test bị skip với điều kiện."""
+        self._test_data['args'] = ['skipped_user']
+        self.assertTrue(False)
     
-    def test_more_subtests(self):
-        """Thêm subtests để test statistics."""
-        for i in range(3):
-            with self.subTest(index=i):
-                self._test_data['args'] = [i]
-                self._test_data['return_value'] = i * 2
-                self.assertEqual(i * 2, i * 2)
+    def test_with_return_value(self):
+        """Test với return value phức tạp."""
+        self._test_data['args'] = ['complex_user', 'complex_device']
+        self._test_data['kwargs'] = {
+            'priority': 'high',
+            'timeout': 30,
+            'retry': 3
+        }
+        
+        result = self.get_db_path(
+            'complex_user', 
+            'complex_device', 
+            priority='high',
+            timeout=30,
+            retry=3
+        )
+        self._test_data['return_value'] = result
+        
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result['user_id'], 'complex_user')
+    
+    # Helper function
+    def get_db_path(self, user_id, device_id, **kwargs):
+        """Mock function."""
+        if not user_id:
+            raise ValueError("User ID is required")
+        
+        role = kwargs.get('role', 'user')
+        
+        if role == 'admin':
+            db_path = f'/var/lib/drm/admin/{user_id}.db'
+        elif role == 'guest':
+            db_path = f'/var/lib/drm/guest/{user_id}.db'
+        else:
+            db_path = f'/var/lib/drm/users/{user_id}.db'
+        
+        return {
+            'status': 'success',
+            'user_id': user_id,
+            'device_id': device_id,
+            'db_path': db_path,
+            'role': role,
+            'metadata': kwargs
+        }
 
 
 # Chạy tests

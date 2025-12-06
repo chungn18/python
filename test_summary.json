@@ -1,0 +1,14 @@
+{
+  "statistics": {
+    "total_main_tests": 6,
+    "total_subtests": 1,
+    "passed": 3,
+    "failed": 0,
+    "errors": 1,
+    "skipped": 2
+  },
+  "success_rate_percent": 75.0,
+  "csv_enabled": true,
+  "csv_filename": "test_results.csv",
+  "timestamp": "2025-12-07T00:34:30.538432"
+}
