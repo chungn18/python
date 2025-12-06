@@ -1,0 +1,12 @@
+test_case_name,subtest_name,test_function,args,return_value,final_result,timestamp
+__main__.TestDrmGetDBPath.test_error_case,,test_error_case,"[""user1"", ""device1""]","""""",ERROR,2025-12-06T22:12:27.599087
+__main__.TestDrmGetDBPath.test_failure_case,,test_failure_case,"[""user1"", ""device1""]","{""status"": ""failed""}",FAILED,2025-12-06T22:12:27.599885
+__main__.TestDrmGetDBPath.test_more_subtests,(index=0),test_more_subtests,[0],0,PASSED,2025-12-06T22:12:27.599950
+__main__.TestDrmGetDBPath.test_more_subtests,(index=1),test_more_subtests,[1],2,PASSED,2025-12-06T22:12:27.599980
+__main__.TestDrmGetDBPath.test_more_subtests,(index=2),test_more_subtests,[2],4,PASSED,2025-12-06T22:12:27.600001
+__main__.TestDrmGetDBPath.test_more_subtests,,test_more_subtests,[2],4,PASSED,2025-12-06T22:12:27.600021
+__main__.TestDrmGetDBPath.test_simple_success,,test_simple_success,"[""user1"", ""device1""]","{""status"": ""success"", ""db_path"": ""/path/user1.db""}",PASSED,2025-12-06T22:12:27.600055
+__main__.TestDrmGetDBPath.test_with_subtests,(role='admin'),test_with_subtests,"[""admin_user"", ""admin_device""]","{""status"": ""success"", ""role"": ""admin""}",PASSED,2025-12-06T22:12:27.600087
+__main__.TestDrmGetDBPath.test_with_subtests,(role='user'),test_with_subtests,"[""user_user"", ""user_device""]","{""status"": ""success"", ""role"": ""user""}",PASSED,2025-12-06T22:12:27.600107
+__main__.TestDrmGetDBPath.test_with_subtests,(role='guest'),test_with_subtests,"[""guest_user"", ""guest_device""]","{""status"": ""success"", ""role"": ""guest""}",PASSED,2025-12-06T22:12:27.600125
+__main__.TestDrmGetDBPath.test_with_subtests,,test_with_subtests,"[""guest_user"", ""guest_device""]","{""status"": ""success"", ""role"": ""guest""}",PASSED,2025-12-06T22:12:27.600143
