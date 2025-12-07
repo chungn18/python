@@ -80,29 +80,31 @@ class TestDrmGetDBPath(unittest.TestCase):
         self.assertIsInstance(result, dict)
         self.assertEqual(result['user_id'], 'complex_user')
     
-    # Helper function
-    def get_db_path(self, user_id, device_id, **kwargs):
-        """Mock function."""
-        if not user_id:
-            raise ValueError("User ID is required")
-        
-        role = kwargs.get('role', 'user')
-        
-        if role == 'admin':
-            db_path = f'/var/lib/drm/admin/{user_id}.db'
-        elif role == 'guest':
-            db_path = f'/var/lib/drm/guest/{user_id}.db'
-        else:
-            db_path = f'/var/lib/drm/users/{user_id}.db'
-        
-        return {
-            'status': 'success',
-            'user_id': user_id,
-            'device_id': device_id,
-            'db_path': db_path,
-            'role': role,
-            'metadata': kwargs
-        }
+
+# Helper function
+def get_db_path(self, user_id, device_id, **kwargs):
+    """Mock function."""
+    if not user_id:
+        raise ValueError("User ID is required")
+    
+    role = kwargs.get('role', 'user')
+    
+    if role == 'admin':
+        db_path = f'/var/lib/drm/admin/{user_id}.db'
+    elif role == 'guest':
+        db_path = f'/var/lib/drm/guest/{user_id}.db'
+    else:
+        db_path = f'/var/lib/drm/users/{user_id}.db'
+    
+    return {
+        'status': 'success',
+        'user_id': user_id,
+        'device_id': device_id,
+        'db_path': db_path,
+        'role': role,
+        'metadata': kwargs
+    }
+
 
 
 # Chạy tests

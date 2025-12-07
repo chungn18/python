@@ -1,7 +1,7 @@
 test_case_name,test_function,args,return_value,final_result,skip_reason,execution_time_ms
-__main__.TestDrmGetDBPath.test_conditional_skip,test_conditional_skip,[],,SKIPPED,Conditional skip,0.02
-__main__.TestDrmGetDBPath.test_failure_case,test_failure_case,"['invalid_user', 'device1']",{'error': 'Invalid user'},PASSED,,0.05
+__main__.TestDrmGetDBPath.test_conditional_skip,test_conditional_skip,[],,SKIPPED,Conditional skip,0.01
+__main__.TestDrmGetDBPath.test_failure_case,test_failure_case,"['invalid_user', 'device1']",,ERROR,,0.5
 __main__.TestDrmGetDBPath.test_skipped_feature,test_skipped_feature,[],,SKIPPED,Feature not ready yet,0.01
-__main__.TestDrmGetDBPath.test_success_case,test_success_case,"['user1', 'device1', 'environment=production']","{'status': 'success', 'user_id': 'user1', 'device_id': 'device1', 'db_path': '/var/lib/drm/users/user1.db', 'role': 'user', 'metadata': {'environment': 'production'}}",PASSED,,0.02
-__main__.TestDrmGetDBPath.test_with_return_value,test_with_return_value,"['complex_user', 'complex_device', 'priority=high', 'timeout=30', 'retry=3']","{'status': 'success', 'user_id': 'complex_user', 'device_id': 'complex_device', 'db_path': '/var/lib/drm/users/complex_user.db', 'role': 'user', 'metadata': {'priority': 'high', 'timeout': 30, 'retry': 3}}",PASSED,,0.02
-__main__.TestDrmGetDBPath.test_with_subtests,test_with_subtests,"['admin', 'device123', 'role=admin']","{'status': 'success', 'user_id': 'admin', 'device_id': 'device123', 'db_path': '/var/lib/drm/admin/admin.db', 'role': 'admin', 'metadata': {'role': 'admin'}}",ERROR,,2.26
+__main__.TestDrmGetDBPath.test_success_case,test_success_case,"['user1', 'device1', 'environment=production']",,ERROR,,0.2
+__main__.TestDrmGetDBPath.test_with_return_value,test_with_return_value,"['complex_user', 'complex_device', 'priority=high', 'timeout=30', 'retry=3']",,ERROR,,0.15
+__main__.TestDrmGetDBPath.test_with_subtests,test_with_subtests,"['admin', 'device123', 'role=admin']",,ERROR,,1.91
